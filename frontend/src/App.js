@@ -5,7 +5,8 @@ import {
   Route,
   Link,
   useRouteMatch,
-  useParams
+  useParams,
+  useLocation
 } from "react-router-dom";
 import "./App.css";
 
@@ -28,12 +29,28 @@ export default function App() {
   );
 }
 
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
+
 function Home() {
   return <h2>Home</h2>;
 }
 
+function Paragraphs(props) {
+  let { page, pageSize } = props;
+  return (
+    <div>
+      <p>Paras route...</p>
+      <p>{`page: ${page}`}</p>
+      <p>{`pageSize: ${pageSize}`}</p>
+    </div>
+  );
+}
+
 function ContractRoute() {
   let match = useRouteMatch();
+  let query = useQuery();
 
   return (
     <div>
@@ -44,6 +61,12 @@ function ContractRoute() {
           2nd <Route> here as an "index" page for all topics, or
           the page that is shown when no topic is selected */}
       <Switch>
+        <Route path={`${match.path}/:id/paragraphs`}>
+          <Paragraphs
+            page={query.get("page")}
+            pageSize={query.get("pageSize")}
+          />
+        </Route>
         <Route path={`${match.path}/:id`}>
           <Contract />
         </Route>
@@ -60,7 +83,7 @@ function Contract() {
 
   const [data, setData] = useState(null);
 
-  let url = `http://localhost:4000/contract/${id}`;
+  let url = `http://localhost:4000/contract/${id}/paragraphs?page=1&pageSize=50`;
 
   useEffect(() => {
     fetch(url)
