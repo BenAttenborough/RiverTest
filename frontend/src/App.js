@@ -39,6 +39,29 @@ function Home() {
 
 function Paragraphs(props) {
   let { page, pageSize } = props;
+  let { id } = useParams();
+
+  const [data, setData] = useState(null);
+
+  let url = `http://localhost:4000/contract/${id}/paragraphs?page=1&pageSize=50`;
+
+  useEffect(() => {
+    fetch(url)
+      .then(handleErrors)
+      .then(resp => {
+        console.log(resp);
+        return resp.json();
+      })
+      .then(info => {
+        console.log(info);
+        setData(info);
+      })
+      .catch(err => {
+        console.log(err);
+        setData({ error: err });
+      });
+  }, []);
+
   return (
     <div>
       <p>Paras route...</p>

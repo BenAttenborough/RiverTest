@@ -1,22 +1,6 @@
 var express = require("express");
 var router = express.Router();
-
-const contract = {
-  data: {
-    type: "contracts",
-    id: "dc89ff49-8449-11e7-ac1d-3c52820efd20",
-    attributes: {
-      name: "Contract Name"
-    }
-  },
-  relationships: {
-    paragraphs: {
-      links: {
-        self: "/contracts/dc89ff49-8449-11e7-ac1d-3c52820efd20/paragraphs"
-      }
-    }
-  }
-};
+var contract1 = require("../data/contract1.js");
 
 const contract2 = {
   data: {
@@ -35,7 +19,20 @@ const contract2 = {
   }
 };
 
-const contracts = [contract, contract2];
+const contracts = [contract1, contract2];
+
+function getMetaData(contract) {
+  const { data, relationships } = contract;
+  return {
+    data,
+    relationships
+  };
+}
+
+function getParagraphs(contract, page, pageSize) {
+  const { content } = contract;
+  return { content };
+}
 
 /* GET home page. */
 router.get("/", function(req, res, next) {
@@ -52,7 +49,7 @@ router.get("/contract/:contractID", function(req, res) {
   const { contractID } = req.params;
   const foundContract = contracts.find(ele => ele.data.id === contractID);
   if (foundContract) {
-    res.send(foundContract);
+    res.send(getMetaData(foundContract));
   } else {
     res.status(404).send("Not found");
   }
@@ -67,7 +64,7 @@ router.get("/contract/:contractID/paragraphs", function(req, res) {
   const { contractID } = req.params;
   const foundContract = contracts.find(ele => ele.data.id === contractID);
   if (foundContract) {
-    res.send(foundContract);
+    res.send(getParagraphs(foundContract));
   } else {
     res.status(404).send("Not found");
   }
