@@ -60,10 +60,11 @@ function Contract() {
 
   const [data, setData] = useState(null);
 
-  let url = "http://localhost:4000/data";
+  let url = `http://localhost:4000/contract/${id}`;
 
   useEffect(() => {
     fetch(url)
+      .then(handleErrors)
       .then(resp => {
         console.log(resp);
         return resp.json();
@@ -71,6 +72,10 @@ function Contract() {
       .then(info => {
         console.log(info);
         setData(info);
+      })
+      .catch(err => {
+        console.log(err);
+        setData({ error: err });
       });
   }, []);
 
@@ -82,11 +87,41 @@ function Contract() {
   );
 }
 
-function DisplayData(props) {
-  console.log(props);
+function HandleFetchError(error) {
   return (
     <div>
-      <p>{`Name: ${props.contract.data.attributes.name}`}</p>
+      <p>{`${error.error}`}</p>
     </div>
   );
+}
+
+function ShowData(props) {
+  const { contract } = props;
+  return (
+    <div>
+      <p>{`Requested id: ${contract.data.id}`}</p>
+      <p>{`Requested name: ${contract.data.attributes.name}`}</p>
+    </div>
+  );
+}
+
+function DisplayData(props) {
+  console.log("props: ", props);
+  return (
+    <div>
+      {/* <p>{`Name: ${props.contract.data.attributes.name}`}</p> */}
+      {props.contract.error ? (
+        <HandleFetchError error={props.contract.error} />
+      ) : (
+        <ShowData contract={props.contract} />
+      )}
+    </div>
+  );
+}
+
+function handleErrors(response) {
+  if (!response.ok) {
+    throw Error(response.statusText);
+  }
+  return response;
 }
