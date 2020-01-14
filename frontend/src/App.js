@@ -5,7 +5,7 @@ import "./App.css";
 function Contract() {
   const [data, setData] = useState(null);
 
-  let url = "http://localhost:9000/data";
+  let url = "http://localhost:4000/data";
 
   useEffect(() => {
     fetch(url)
