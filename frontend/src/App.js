@@ -1,8 +1,63 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useRouteMatch,
+  useParams
+} from "react-router-dom";
 import "./App.css";
 
+export default function App() {
+  return (
+    <Router>
+      <div className="App">
+        <header className="App-header">
+          <Switch>
+            <Route path="/contract">
+              <ContractRoute />
+            </Route>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </header>
+      </div>
+    </Router>
+  );
+}
+
+function Home() {
+  return <h2>Home</h2>;
+}
+
+function ContractRoute() {
+  let match = useRouteMatch();
+
+  return (
+    <div>
+      <h2>Contract</h2>
+
+      {/* The Topics page has its own <Switch> with more routes
+          that build on the /topics URL path. You can think of the
+          2nd <Route> here as an "index" page for all topics, or
+          the page that is shown when no topic is selected */}
+      <Switch>
+        <Route path={`${match.path}/:id`}>
+          <Contract />
+        </Route>
+        <Route path={match.path}>
+          <h3>Please select a topic.</h3>
+        </Route>
+      </Switch>
+    </div>
+  );
+}
+
 function Contract() {
+  let { id } = useParams();
+
   const [data, setData] = useState(null);
 
   let url = "http://localhost:4000/data";
@@ -19,30 +74,19 @@ function Contract() {
       });
   }, []);
 
-  return <div className="Contract">{data ? <p>data</p> : <p>No data</p>}</div>;
-}
-
-function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        {/* <Contract /> */}
-        <Router>
-          <Switch>
-            <Route path="/about">
-              <p>About</p>
-            </Route>
-            <Route path="/users">
-              <p>Users</p>
-            </Route>
-            <Route path="/">
-              <p>Home</p>
-            </Route>
-          </Switch>
-        </Router>
-      </header>
+    <div>
+      <h3>Requested contract ID: {id}</h3>
+      {data ? <DisplayData contract={data} /> : <p>No data</p>}
     </div>
   );
 }
 
-export default App;
+function DisplayData(props) {
+  console.log(props);
+  return (
+    <div>
+      <p>{`Name: ${props.contract.data.attributes.name}`}</p>
+    </div>
+  );
+}
