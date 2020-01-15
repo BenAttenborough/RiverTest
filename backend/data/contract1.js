@@ -19,6 +19,166 @@ const contract = {
       id: "0d60b462-2b98-11e8-97a1-080027a8df8b",
       attributes: {
         text:
+          "1. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+      }
+    },
+    {
+      type: "contract-paragraphs",
+      id: "0d60b462-2b98-11e8-97a1-080027a8df8a",
+      attributes: {
+        text:
+          "2. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+      }
+    },
+    {
+      type: "contract-paragraphs",
+      id: "0d60b462-2b98-11e8-97a1-080027a8df8a",
+      attributes: {
+        text:
+          "3. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+      }
+    },
+    {
+      type: "contract-paragraphs",
+      id: "0d60b462-2b98-11e8-97a1-080027a8df8a",
+      attributes: {
+        text:
+          "4. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+      }
+    },
+    {
+      type: "contract-paragraphs",
+      id: "0d60b462-2b98-11e8-97a1-080027a8df8a",
+      attributes: {
+        text:
+          "5. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+      }
+    },
+    {
+      type: "contract-paragraphs",
+      id: "0d60b462-2b98-11e8-97a1-080027a8df8a",
+      attributes: {
+        text:
+          "6. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+      }
+    },
+    {
+      type: "contract-paragraphs",
+      id: "0d60b462-2b98-11e8-97a1-080027a8df8a",
+      attributes: {
+        text:
+          "7. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+      }
+    },
+    {
+      type: "contract-paragraphs",
+      id: "0d60b462-2b98-11e8-97a1-080027a8df8a",
+      attributes: {
+        text:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+      }
+    },
+    {
+      type: "contract-paragraphs",
+      id: "0d60b462-2b98-11e8-97a1-080027a8df8a",
+      attributes: {
+        text:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+      }
+    },
+    {
+      type: "contract-paragraphs",
+      id: "0d60b462-2b98-11e8-97a1-080027a8df8a",
+      attributes: {
+        text:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+      }
+    },
+    {
+      type: "contract-paragraphs",
+      id: "0d60b462-2b98-11e8-97a1-080027a8df8a",
+      attributes: {
+        text:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+      }
+    },
+    {
+      type: "contract-paragraphs",
+      id: "0d60b462-2b98-11e8-97a1-080027a8df8a",
+      attributes: {
+        text:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+      }
+    },
+    {
+      type: "contract-paragraphs",
+      id: "0d60b462-2b98-11e8-97a1-080027a8df8a",
+      attributes: {
+        text:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+      }
+    },
+    {
+      type: "contract-paragraphs",
+      id: "0d60b462-2b98-11e8-97a1-080027a8df8a",
+      attributes: {
+        text:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+      }
+    },
+    {
+      type: "contract-paragraphs",
+      id: "0d60b462-2b98-11e8-97a1-080027a8df8a",
+      attributes: {
+        text:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+      }
+    },
+    {
+      type: "contract-paragraphs",
+      id: "0d60b462-2b98-11e8-97a1-080027a8df8a",
+      attributes: {
+        text:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+      }
+    },
+    {
+      type: "contract-paragraphs",
+      id: "0d60b462-2b98-11e8-97a1-080027a8df8a",
+      attributes: {
+        text:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+      }
+    },
+    {
+      type: "contract-paragraphs",
+      id: "0d60b462-2b98-11e8-97a1-080027a8df8a",
+      attributes: {
+        text:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+      }
+    },
+    {
+      type: "contract-paragraphs",
+      id: "0d60b462-2b98-11e8-97a1-080027a8df8a",
+      attributes: {
+        text:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+      }
+    },
+    {
+      type: "contract-paragraphs",
+      id: "0d60b462-2b98-11e8-97a1-080027a8df8a",
+      attributes: {
+        text:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+      }
+    },
+    {
+      type: "contract-paragraphs",
+      id: "0d60b462-2b98-11e8-97a1-080027a8df8a",
+      attributes: {
+        text:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
       }
     },

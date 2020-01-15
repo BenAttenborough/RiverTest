@@ -38,9 +38,16 @@ function Home() {
 }
 
 function showParagraphs(data) {
+  if (!data.content) {
+    return <p>There is no data for specified page</p>;
+  }
   return data.content.map(item => {
     return <p key={item.id}>{item.attributes.text}</p>;
   });
+}
+
+function handleScroll(event) {
+  console.log("Scrolling", event);
 }
 
 function Paragraphs(props) {
@@ -49,9 +56,10 @@ function Paragraphs(props) {
 
   const [data, setData] = useState(null);
 
-  let url = `http://localhost:4000/contract/${id}/paragraphs?page=1&pageSize=50`;
+  let url = `http://localhost:4000/contract/${id}/paragraphs?page=${page}&pageSize=${pageSize}`;
 
   useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
     fetch(url)
       .then(handleErrors)
       .then(resp => {

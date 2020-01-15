@@ -30,8 +30,41 @@ function getMetaData(contract) {
 }
 
 function getParagraphs(contract, page, pageSize) {
+  if (page < 1) {
+    return {};
+  }
   const { content } = contract;
-  return { content };
+  let numPars = content.length;
+  let startPar = (page - 1) * pageSize;
+  let limit = page * pageSize;
+  let endOfPars = false;
+  console.log("numPars", numPars);
+  console.log("startPar", startPar);
+
+  // if startPar > numPars then this page does not exist
+  if (startPar > numPars) {
+    return {};
+  }
+  // if limit > numPars then set limit to match numPars and flag this is the end of the file
+  if (limit >= numPars) {
+    limit = numPars;
+    endOfPars = true;
+  }
+  console.log("limit", limit);
+  let selectedPars = [];
+  for (let i = startPar; i < limit; i++) {
+    selectedPars.push(content[i]);
+  }
+  if (endOfPars) {
+    selectedPars.push({
+      type: "EOF",
+      id: "EOF",
+      attributes: {
+        text: "End of content"
+      }
+    });
+  }
+  return { content: selectedPars, page, pageSize };
 }
 
 /* GET home page. */
@@ -62,9 +95,14 @@ router.get("/contract/:contractID/paragraphs", function(req, res) {
   // res.send(req.params);
 
   const { contractID } = req.params;
+  const { page, pageSize } = req.query;
+  console.log("req.query", req.query);
+  console.log("contractID", contractID);
+  console.log("page", page);
+  console.log("pageSize", pageSize);
   const foundContract = contracts.find(ele => ele.data.id === contractID);
   if (foundContract) {
-    res.send(getParagraphs(foundContract));
+    res.send(getParagraphs(foundContract, page, pageSize));
   } else {
     res.status(404).send("Not found");
   }
