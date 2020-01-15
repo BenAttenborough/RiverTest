@@ -55,25 +55,29 @@ function detectContainerBottom(container) {
   return false;
 }
 
-function handleScroll(event) {
+function handleScroll(event, page, setPage) {
   const container = document.getElementById("paragraphs-container");
   if (detectContainerBottom(container)) {
     console.log("Scrolled to bottom of container");
+    setPage(page + 1);
   }
   console.log("Scrolling", event);
-  // console.log("container", container);
+  console.log("page", page);
 }
 
 function Paragraphs(props) {
-  let { page, pageSize } = props;
+  let { pageSize } = props;
   let { id } = useParams();
 
   const [data, setData] = useState(null);
+  const [page, setPage] = useState(parseInt(props.page));
 
   let url = `http://localhost:4000/contract/${id}/paragraphs?page=${page}&pageSize=${pageSize}`;
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", event => {
+      handleScroll(event, page, setPage);
+    });
     fetch(url)
       .then(handleErrors)
       .then(resp => {
@@ -88,7 +92,7 @@ function Paragraphs(props) {
         console.log(err);
         setData({ error: err });
       });
-  }, []);
+  }, [page]);
 
   return (
     <div>
