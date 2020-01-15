@@ -13,8 +13,9 @@
   }
 }
 
-.App-header {
+.App-main {
   background-color: #282c34;
+  /* background-color: #1d1f24; */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -22,6 +23,16 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.App-content {
+  background-color: #1d1f24;
+  /* background-color: #282c34; */
+  /* border: 1px solid red; */
+  max-width: 50rem;
+  padding: 0 2rem;
+  margin: 1rem;
+  border-radius: 5px;
 }
 
 .App-link {

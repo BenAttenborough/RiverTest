@@ -14,16 +14,18 @@ export default function App() {
   return (
     <Router>
       <div className="App">
-        <header className="App-header">
-          <Switch>
-            <Route path="/contract">
-              <ContractRoute />
-            </Route>
-            <Route path="/">
-              <Home />
-            </Route>
-          </Switch>
-        </header>
+        <div className="App-main">
+          <div id="paragraphs-container" className="App-content">
+            <Switch>
+              <Route path="/contract">
+                <ContractRoute />
+              </Route>
+              <Route path="/">
+                <Home />
+              </Route>
+            </Switch>
+          </div>
+        </div>
       </div>
     </Router>
   );
@@ -46,8 +48,20 @@ function showParagraphs(data) {
   });
 }
 
+function detectContainerBottom(container) {
+  if (container.getBoundingClientRect().bottom <= window.innerHeight) {
+    return true;
+  }
+  return false;
+}
+
 function handleScroll(event) {
+  const container = document.getElementById("paragraphs-container");
+  if (detectContainerBottom(container)) {
+    console.log("Scrolled to bottom of container");
+  }
   console.log("Scrolling", event);
+  // console.log("container", container);
 }
 
 function Paragraphs(props) {
