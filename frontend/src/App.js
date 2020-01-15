@@ -37,6 +37,12 @@ function Home() {
   return <h2>Home</h2>;
 }
 
+function showParagraphs(data) {
+  return data.content.map(item => {
+    return <p key={item.id}>{item.attributes.text}</p>;
+  });
+}
+
 function Paragraphs(props) {
   let { page, pageSize } = props;
   let { id } = useParams();
@@ -53,7 +59,7 @@ function Paragraphs(props) {
         return resp.json();
       })
       .then(info => {
-        console.log(info);
+        console.log("info", info);
         setData(info);
       })
       .catch(err => {
@@ -67,6 +73,7 @@ function Paragraphs(props) {
       <p>Paras route...</p>
       <p>{`page: ${page}`}</p>
       <p>{`pageSize: ${pageSize}`}</p>
+      {data ? showParagraphs(data) : "Fetching data"}
     </div>
   );
 }
