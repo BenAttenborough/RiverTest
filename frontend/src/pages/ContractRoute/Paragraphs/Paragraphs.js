@@ -13,7 +13,7 @@ function Button(props) {
 
 function fetchPars(fetchParams) {
   console.log("Fetching pars");
-  let { id, currentPage, pageSize, setContent, content } = fetchParams;
+  let { id, currentPage, pageSize, setContent, prevContent } = fetchParams;
 
   const url = `http://localhost:4000/contract/${id}/paragraphs?page=${currentPage}&pageSize=${pageSize}`;
   fetch(url)
@@ -23,23 +23,18 @@ function fetchPars(fetchParams) {
       return resp.json();
     })
     .then(info => {
-      let formattedContent = info.content.map(item => {
-        return {
-          id: item.id,
-          text: item.attributes.text
-        };
-      });
-      // formattedContent = [
-      //   ...formattedContent,
-      //   {
-      //     id: "fooo",
-      //     text: "Extra line"
-      //   }
-      // ];
-      // console.log("formattedContent", formattedContent);
-      if (content) {
-        console.log("content -->", content);
-        formattedContent = [...content, ...formattedContent];
+      let formattedContent = [];
+      if (info.content) {
+        formattedContent = info.content.map(item => {
+          return {
+            id: item.id,
+            text: item.attributes.text
+          };
+        });
+      }
+      if (prevContent) {
+        console.log("content -->", prevContent);
+        formattedContent = [...prevContent, ...formattedContent];
       }
       console.log("formattedContent", formattedContent);
 
@@ -53,6 +48,7 @@ function fetchPars(fetchParams) {
 
 function ShowParagraphs(props) {
   const { content } = props;
+  console.log("xContentx:", content);
   if (!content) {
     return <p>There is no content for specified page</p>;
   }
@@ -80,14 +76,14 @@ function ShowContent(props) {
 export function Paragraphs(props) {
   let { page, pageSize } = props;
   let { id } = useParams();
-  const [content, setContent] = useState(null);
+  const [prevContent, setContent] = useState(null);
   const [currentPage, setCurrentPage] = useState(parseInt(page));
   const fetchParams = {
     id,
     currentPage,
     pageSize,
     setContent,
-    content
+    prevContent
   };
   // let url = `http://localhost:4000/contract/${id}/paragraphs?page=${page}&pageSize=${pageSize}`;
 
@@ -101,9 +97,9 @@ export function Paragraphs(props) {
       <p>Paras route...</p>
       <p>{`page: ${page}`}</p>
       <p>{`pageSize: ${pageSize}`}</p>
-      {content ? (
+      {prevContent ? (
         <ShowContent
-          content={content}
+          content={prevContent}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
         />
