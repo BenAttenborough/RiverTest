@@ -11,6 +11,23 @@ function Button(props) {
   );
 }
 
+function fetchContractTitle(id, setTitle) {
+  const url = `http://localhost:4000/contract/${id}`;
+  fetch(url)
+    .then(handleErrors)
+    .then(resp => {
+      // console.log(resp);
+      return resp.json();
+    })
+    .then(meta => {
+      console.log("Contract meta:", meta);
+      setTitle(meta.data.attributes.name);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+}
+
 function fetchPars(fetchParams) {
   // console.log("Fetching pars");
   let {
@@ -70,10 +87,10 @@ function ShowParagraphs(props) {
   const { content } = props;
   // console.log("xContentx:", content);
   if (!content) {
-    return <p>There is no content for specified page</p>;
+    return <li>There is no content for specified page</li>;
   }
   return content.map(item => {
-    return <p key={item.id}>{item.text}</p>;
+    return <li key={item.id}>{item.text}</li>;
   });
 }
 
@@ -194,8 +211,9 @@ function ShowContent(props) {
 
   return (
     <div>
-      <p>ShowContent</p>
-      <ShowParagraphs content={content} />
+      <ul className="contract-paragraphs">
+        <ShowParagraphs content={content} />
+      </ul>
       {!EOF && (
         <Button
           label={"Fetch more paragraphs"}
@@ -216,6 +234,7 @@ export function Paragraphs(props) {
   const [content, setContent] = useState(null);
   const [currentPage, setCurrentPage] = useState(parseInt(page));
   const [EOF, setEOF] = useState(false);
+  const [title, setTitle] = useState("...");
 
   const fetchParams = {
     id,
@@ -230,14 +249,15 @@ export function Paragraphs(props) {
     if (!EOF) {
       console.log("Fecthing new paragraphs: ", fetchParams);
       fetchPars(fetchParams);
+      fetchContractTitle(id, setTitle);
     }
   }, []);
 
   return (
     <div>
-      <p>Paras route...</p>
-      <p>{`page: ${page}`}</p>
-      <p>{`pageSize: ${pageSize}`}</p>
+      <h2>{title}</h2>
+      <p>{`Starting page: ${page}`}</p>
+      <p>{`Fetching ${pageSize} pages at a time`}</p>
       {content ? (
         <div>
           <ShowContent

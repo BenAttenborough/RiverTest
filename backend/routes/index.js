@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var contract1 = require("../data/contract1.js");
+var contract1 = require("../data/appleContract.js");
 
 const contract2 = {
   data: {

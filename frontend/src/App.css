@@ -14,20 +14,22 @@
 }
 
 .App-main {
-  background-color: #282c34;
+  /* background-color: #282c34; */
   /* background-color: #1d1f24; */
+  background-color: #5bb4fd;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(7px + 2vmin);
   color: white;
 }
 
 .App-content {
-  background-color: #1d1f24;
-  /* background-color: #282c34; */
+  /* background-color: #1d1f24; */
+  /* background-color: #5bb4fd; */
+  background-color: #33a3ff;
   /* border: 1px solid red; */
   max-width: 50rem;
   padding: 0 2rem;
@@ -39,11 +41,16 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.contract-paragraphs {
+  padding: 0;
+}
+
+.contract-paragraphs > li {
+  background-color: white;
+  color: #1d1f24;
+  display: block;
+  padding: 1rem;
+  border-radius: 5px;
+  margin: 1rem 0;
+  text-align: left;
 }

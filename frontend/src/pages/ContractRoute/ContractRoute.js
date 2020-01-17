@@ -12,7 +12,6 @@ export function ContractRoute() {
   let query = useQuery();
   return (
     <div>
-      <h2>Contract</h2>
       <Switch>
         <Route path={`${match.path}/:id/paragraphs`}>
           <Paragraphs
