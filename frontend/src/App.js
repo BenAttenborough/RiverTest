@@ -55,14 +55,20 @@ function detectContainerBottom(container) {
   return false;
 }
 
-function handleScroll(event, page, setPage) {
-  const container = document.getElementById("paragraphs-container");
-  if (detectContainerBottom(container)) {
-    console.log("Scrolled to bottom of container");
-    setPage(page + 1);
-  }
-  console.log("Scrolling", event);
-  console.log("page", page);
+// function handleScroll(event, page, setPage) {
+//   const container = document.getElementById("paragraphs-container");
+//   // An issue here where re-render causes container bottom to be shown again forcing another update
+//   if (detectContainerBottom(container)) {
+//     console.log("Scrolled to bottom of container");
+
+//     setPage(page + 1);
+//   }
+//   // console.log("Scrolling", event);
+//   // console.log("page", page);
+// }
+
+function onScroll() {
+  console.log("Scrolled!!! -----");
 }
 
 function Paragraphs(props) {
@@ -74,10 +80,34 @@ function Paragraphs(props) {
 
   let url = `http://localhost:4000/contract/${id}/paragraphs?page=${page}&pageSize=${pageSize}`;
 
+  // window.addEventListener("scroll", event => {
+  //   handleScroll(event, page, setPage);
+  // });
+
+  // let options = {
+  //   root: document.getElementById("paragraphs-container"),
+  //   rootMargin: "0px",
+  //   threshold: 0
+  // };
+
+  // let observer = new IntersectionObserver(onScroll, options);
+  // // let target = document.getElementById("eof-marker");
+  // let target = (
+  //   <div id="eof-marker" className="eof-class">
+  //     <p>xxxxx</p>
+  //   </div>
+  // );
+
+  // if (target) {
+  //   observer.observe(target);
+  // }
+
   useEffect(() => {
-    window.addEventListener("scroll", event => {
-      handleScroll(event, page, setPage);
-    });
+    // So this is broken because we are adding another event listener every time page is updated
+    // window.addEventListener("scroll", event => {
+    //   handleScroll(event, page, setPage);
+    // });
+
     fetch(url)
       .then(handleErrors)
       .then(resp => {
@@ -85,7 +115,23 @@ function Paragraphs(props) {
         return resp.json();
       })
       .then(info => {
-        console.log("info", info);
+        console.log("info >>>>>", info);
+        console.log("info >>>>>", info.content);
+        // If there is data merge the new info with it
+        if (data) {
+          let oldContent = data.content.slice();
+          let newContent = info.content.slice();
+          // console.log("oldContent", oldContent);
+          // console.log("newContent", newContent);
+          let combinedData = oldContent.concat(newContent);
+          // console.log("combinedData", combinedData);
+          setData({
+            content: combinedData,
+            page: info.page,
+            pageSize: info.pageSize
+          });
+        }
+
         setData(info);
       })
       .catch(err => {
@@ -94,12 +140,17 @@ function Paragraphs(props) {
       });
   }, [page]);
 
+  console.log("data >>>>>>", data);
+  console.log("page", page);
   return (
     <div>
       <p>Paras route...</p>
       <p>{`page: ${page}`}</p>
       <p>{`pageSize: ${pageSize}`}</p>
       {data ? showParagraphs(data) : "Fetching data"}
+      <div id="eof-marker" className="eof-class">
+        <p>xxxxx</p>
+      </div>
     </div>
   );
 }
