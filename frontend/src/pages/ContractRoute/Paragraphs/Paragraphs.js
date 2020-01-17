@@ -13,7 +13,15 @@ function Button(props) {
 
 function fetchPars(fetchParams) {
   console.log("Fetching pars");
-  let { id, currentPage, pageSize, setContent, prevContent } = fetchParams;
+  let {
+    id,
+    currentPage,
+    pageSize,
+    setContent,
+    prevContent,
+    EOF,
+    setEOF
+  } = fetchParams;
 
   const url = `http://localhost:4000/contract/${id}/paragraphs?page=${currentPage}&pageSize=${pageSize}`;
   fetch(url)
@@ -22,28 +30,37 @@ function fetchPars(fetchParams) {
       console.log(resp);
       return resp.json();
     })
-    .then(info => {
-      let formattedContent = [];
-      if (info.content) {
-        formattedContent = info.content.map(item => {
-          return {
-            id: item.id,
-            text: item.attributes.text
-          };
-        });
-      }
-      if (prevContent) {
-        console.log("content -->", prevContent);
-        formattedContent = [...prevContent, ...formattedContent];
-      }
-      console.log("formattedContent", formattedContent);
-
-      setContent(formattedContent);
-    })
+    .then(updateParagraphs(prevContent, setContent, EOF, setEOF))
     .catch(err => {
       console.log(err);
       setContent({ error: err });
     });
+}
+
+function updateParagraphs(prevContent, setContent, EOF, setEOF) {
+  return info => {
+    let formattedContent = [];
+    if (info.content) {
+      formattedContent = info.content.map(item => {
+        return {
+          id: item.id,
+          text: item.attributes.text
+        };
+      });
+    }
+    if (prevContent) {
+      console.log("content -->", prevContent);
+      formattedContent = [...prevContent, ...formattedContent];
+    }
+    const lastItem = formattedContent[formattedContent.length - 1];
+    if (lastItem.id === "EOF") {
+      setEOF(true);
+    }
+    console.log("formattedContent", formattedContent);
+    console.log("formattedContent.length", formattedContent.length);
+    console.log("lastitem", formattedContent[formattedContent.length - 1]);
+    setContent(formattedContent);
+  };
 }
 
 function ShowParagraphs(props) {
@@ -58,17 +75,20 @@ function ShowParagraphs(props) {
 }
 
 function ShowContent(props) {
-  const { content, currentPage, setCurrentPage } = props;
+  const { content, currentPage, setCurrentPage, EOF } = props;
   return (
     <div>
       <ShowParagraphs content={content} />
-      <Button
-        label={"Fetch more paragraphs"}
-        action={() => {
-          console.log("currentPage,", currentPage);
-          setCurrentPage(currentPage + 1);
-        }}
-      />
+      {!EOF && (
+        <Button
+          label={"Fetch more paragraphs"}
+          action={() => {
+            console.log("currentPage,", currentPage);
+
+            setCurrentPage(currentPage + 1);
+          }}
+        />
+      )}
     </div>
   );
 }
@@ -76,32 +96,38 @@ function ShowContent(props) {
 export function Paragraphs(props) {
   let { page, pageSize } = props;
   let { id } = useParams();
-  const [prevContent, setContent] = useState(null);
+  const [content, setContent] = useState(null);
   const [currentPage, setCurrentPage] = useState(parseInt(page));
+  const [EOF, setEOF] = useState(false);
+
   const fetchParams = {
     id,
     currentPage,
     pageSize,
     setContent,
-    prevContent
+    prevContent: content,
+    EOF,
+    setEOF
   };
-  // let url = `http://localhost:4000/contract/${id}/paragraphs?page=${page}&pageSize=${pageSize}`;
 
+  // Fetch paragraphs on component mount and then every time currentPage is incremented
   useEffect(() => {
-    fetchPars(fetchParams);
+    if (!EOF) {
+      fetchPars(fetchParams);
+    }
   }, [currentPage]);
-  // console.log("content >>>>>>", content);
-  // console.log("page", page);
+
   return (
     <div>
       <p>Paras route...</p>
       <p>{`page: ${page}`}</p>
       <p>{`pageSize: ${pageSize}`}</p>
-      {prevContent ? (
+      {content ? (
         <ShowContent
-          content={prevContent}
+          content={content}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
+          EOF={EOF}
         />
       ) : (
         "Fetching data"
