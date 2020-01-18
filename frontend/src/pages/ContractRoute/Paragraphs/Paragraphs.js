@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
-import { handleErrors } from "../../../utils/utils";
+import { makeFetchRequest } from "../../../utils/utils";
 
 function Button(props) {
   const { label, action } = props;
@@ -9,23 +9,6 @@ function Button(props) {
       <span>{label}</span>
     </div>
   );
-}
-
-function fetchContractTitle(id, setTitle) {
-  const url = `http://localhost:4000/contract/${id}`;
-  fetch(url)
-    .then(handleErrors)
-    .then(resp => {
-      // console.log(resp);
-      return resp.json();
-    })
-    .then(meta => {
-      console.log("Contract meta:", meta);
-      setTitle(meta.data.attributes.name);
-    })
-    .catch(err => {
-      console.log(err);
-    });
 }
 
 function fetchPars(fetchParams) {
@@ -39,45 +22,34 @@ function fetchPars(fetchParams) {
     setEOF
   } = fetchParams;
 
-  // console.log("prevContent -->", prevContent);
-
   const url = `http://localhost:4000/contract/${id}/paragraphs?page=${currentPage}&pageSize=${pageSize}`;
-  fetch(url)
-    .then(handleErrors)
-    .then(resp => {
-      // console.log(resp);
-      return resp.json();
-    })
-    .then(updateParagraphs(prevContent, setContent, setEOF))
-    .catch(err => {
-      console.log(err);
-      setContent({ error: err });
-    });
+
+  makeFetchRequest(url, data => {
+    updateParagraphs(data, prevContent, setContent, setEOF);
+  });
 }
 
-function updateParagraphs(prevContent, setContent, setEOF) {
-  return info => {
-    let formattedContent = [];
-    if (info.content) {
-      formattedContent = info.content.map(item => {
-        return {
-          id: item.id,
-          text: item.attributes.text
-        };
-      });
-    }
-    if (prevContent) {
-      formattedContent = prevContent.concat(formattedContent);
-    }
-    const lastItem = formattedContent[formattedContent.length - 1];
-    if (lastItem.id === "EOF") {
-      setEOF(true);
-    }
-    // console.log("formattedContent", formattedContent);
-    // console.log("formattedContent.length", formattedContent.length);
-    // console.log("lastitem", formattedContent[formattedContent.length - 1]);
-    setContent(formattedContent);
-  };
+function updateParagraphs(data, prevContent, setContent, setEOF) {
+  let formattedContent = [];
+  if (data.content) {
+    formattedContent = data.content.map(item => {
+      return {
+        id: item.id,
+        text: item.attributes.text
+      };
+    });
+  }
+  if (prevContent) {
+    formattedContent = prevContent.concat(formattedContent);
+  }
+  const lastItem = formattedContent[formattedContent.length - 1];
+  if (lastItem.id === "EOF") {
+    setEOF(true);
+  }
+  // console.log("formattedContent", formattedContent);
+  // console.log("formattedContent.length", formattedContent.length);
+  // console.log("lastitem", formattedContent[formattedContent.length - 1]);
+  setContent(formattedContent);
 }
 
 function ShowParagraphs(props) {
@@ -163,10 +135,6 @@ function ShowContent(props) {
   console.log("prevContent", prevContent);
   console.log("content", content);
   const scrollEle = useRef(null);
-  // useVis(scrollEle, () => {
-  //   console.log("currentPage,", currentPage);
-  //   setCurrentPage(currentPage + 1);
-  // });
 
   useVis(
     scrollEle,
@@ -177,15 +145,6 @@ function ShowContent(props) {
     content,
     EOF
   );
-
-  // let options = {
-  //   root: document.querySelector("#scrollArea"),
-  //   rootMargin: "0px",
-  //   threshold: 1.0
-  // };
-
-  // let observer = new IntersectionObserver(onScroll);
-  // observer.observe(scrollEle);
 
   return (
     <div>
@@ -229,12 +188,17 @@ export function Paragraphs(props) {
     prevContent: content,
     setEOF
   };
+
+  const url = `http://localhost:4000/contract/${id}`;
+
   // Fetch paragraphs on component mount and then every time currentPage is incremented
   useEffect(() => {
     if (!EOF) {
       console.log("Fecthing new paragraphs: ", fetchParams);
       fetchPars(fetchParams);
-      fetchContractTitle(id, setTitle);
+      makeFetchRequest(url, meta => {
+        setTitle(meta.data.attributes.name);
+      });
     }
   }, []);
 
