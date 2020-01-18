@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { makeFetchRequest } from "../../../utils/utils";
+import { baseUrl } from "../../../settings/constants";
 
 function Button(props) {
   const { label, action } = props;
@@ -11,18 +12,15 @@ function Button(props) {
   );
 }
 
-function fetchPars(fetchParams) {
-  // console.log("Fetching pars");
-  let {
-    id,
-    currentPage,
-    pageSize,
-    setContent,
-    prevContent,
-    setEOF
-  } = fetchParams;
-
-  const url = `http://localhost:4000/contract/${id}/paragraphs?page=${currentPage}&pageSize=${pageSize}`;
+function fetchPars({
+  id,
+  currentPage,
+  pageSize,
+  setContent,
+  prevContent,
+  setEOF
+}) {
+  const url = `${baseUrl}/contract/${id}/paragraphs?page=${currentPage}&pageSize=${pageSize}`;
 
   makeFetchRequest(url, data => {
     updateParagraphs(data, prevContent, setContent, setEOF);

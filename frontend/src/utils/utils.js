@@ -6,7 +6,6 @@ export function handleErrors(response) {
 }
 
 export function makeFetchRequest(url, callback) {
-  console.log("makeFetchRequest");
   fetch(url)
     .then(resp => {
       return handleErrors(resp);
