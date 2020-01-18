@@ -257,7 +257,7 @@ export function Paragraphs(props) {
     <div>
       <h2>{title}</h2>
       <p>{`Starting page: ${page}`}</p>
-      <p>{`Fetching ${pageSize} pages at a time`}</p>
+      <p>{`Fetching ${pageSize} paragraphs at a time`}</p>
       {content ? (
         <div>
           <ShowContent
