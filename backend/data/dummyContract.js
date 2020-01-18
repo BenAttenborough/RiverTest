@@ -9,7 +9,7 @@ const contract = {
   relationships: {
     paragraphs: {
       links: {
-        self: "/contracts/dc89ff49-8449-11e7-ac1d-3c52820efd20/paragraphs"
+        self: "/contract/dc89ff49-8449-11e7-ac1d-3c52820efd20/paragraphs"
       }
     }
   },

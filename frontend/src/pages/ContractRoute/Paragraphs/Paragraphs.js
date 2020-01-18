@@ -227,6 +227,13 @@ function ShowContent(props) {
 
 export function Paragraphs(props) {
   let { page, pageSize } = props;
+  // Defaults if parameters missing
+  if (!page) {
+    page = 1;
+  }
+  if (!pageSize) {
+    pageSize = 5;
+  }
   let { id } = useParams();
   const [content, setContent] = useState(null);
   const [currentPage, setCurrentPage] = useState(parseInt(page));

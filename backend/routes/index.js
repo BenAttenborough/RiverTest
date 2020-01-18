@@ -113,7 +113,7 @@ router.get("/contract/:contractID/paragraphs", function(req, res) {
 });
 
 router.get("/contracts", function(req, res) {
-  res.send(contracts);
+  res.send(contracts.map(contract => getMetaData(contract)));
 });
 
 module.exports = router;
