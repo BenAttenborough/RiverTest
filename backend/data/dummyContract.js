@@ -3,7 +3,7 @@ const contract = {
     type: "contracts",
     id: "dc89ff49-8449-11e7-ac1d-3c52820efd20",
     attributes: {
-      name: "Contract Name"
+      name: "Dummy Contract"
     }
   },
   relationships: {

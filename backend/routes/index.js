@@ -1,23 +1,24 @@
 var express = require("express");
 var router = express.Router();
 var contract1 = require("../data/appleContract.js");
+var contract2 = require("../data/dummyContract.js");
 
-const contract2 = {
-  data: {
-    type: "contracts",
-    id: "ddd2222",
-    attributes: {
-      name: "Contract Two Name"
-    }
-  },
-  relationships: {
-    paragraphs: {
-      links: {
-        self: "/contracts/ddd2222/paragraphs"
-      }
-    }
-  }
-};
+// const contract2 = {
+//   data: {
+//     type: "contracts",
+//     id: "ddd2222",
+//     attributes: {
+//       name: "Contract Two Name"
+//     }
+//   },
+//   relationships: {
+//     paragraphs: {
+//       links: {
+//         self: "/contracts/ddd2222/paragraphs"
+//       }
+//     }
+//   }
+// };
 
 const contracts = [contract1, contract2];
 
@@ -109,6 +110,10 @@ router.get("/contract/:contractID/paragraphs", function(req, res) {
 
   // res.send(`Contract id from server: ${contractID}`);
   // res.send(`Contract name: ${contract.data.attributes.name}`);
+});
+
+router.get("/contracts", function(req, res) {
+  res.send(contracts);
 });
 
 module.exports = router;

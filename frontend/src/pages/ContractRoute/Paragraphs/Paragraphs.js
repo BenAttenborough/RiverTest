@@ -67,10 +67,7 @@ function updateParagraphs(prevContent, setContent, setEOF) {
       });
     }
     if (prevContent) {
-      // console.log("prevContent -->", prevContent);
-      // formattedContent = [...prevContent, ...formattedContent];
       formattedContent = prevContent.concat(formattedContent);
-      // console.log()
     }
     const lastItem = formattedContent[formattedContent.length - 1];
     if (lastItem.id === "EOF") {
