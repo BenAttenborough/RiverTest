@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { makeFetchRequest } from "../utils/utils";
 
-function DisplayContracts({ contracts }) {
-  console.log("contracts:", contracts);
+export function DisplayContracts({ contracts }) {
   return (
     <div>
       <h3>Available contracts</h3>
@@ -21,8 +20,7 @@ function DisplayContracts({ contracts }) {
   );
 }
 
-function HandleData({ data }) {
-  console.log("data", data);
+export function HandleData({ data }) {
   return (
     <div>
       {data.error ? (
@@ -33,8 +31,6 @@ function HandleData({ data }) {
     </div>
   );
 }
-
-// function use
 
 export default function Home() {
   const [data, setData] = useState(null);

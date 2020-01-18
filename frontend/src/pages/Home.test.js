@@ -1,5 +1,5 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { shallow, mount } from "enzyme";
 import ReactDOM from "react-dom";
 import { act } from "react-dom/test-utils";
 import { render, fireEvent, getByTestId } from "@testing-library/react";
@@ -7,32 +7,7 @@ import "whatwg-fetch";
 import { renderHook } from "@testing-library/react-hooks";
 import fetchMock from "fetch-mock";
 import Home from "./Home";
-
-// describe("useDataApi", () => {
-//   beforeAll(() => {
-//     global.fetch = fetch;
-//   });
-//   afterAll(() => {
-//     fetchMock.restore();
-//   });
-
-//   it("should return data with a successful request", async () => {
-//     const { result } = renderHook(() => Home());
-//     console.log("result", result);
-//     // fetchMock.mock("test.com", {
-//     //   returnedData: "foo"
-//     // });
-//     // await act(async () => {
-//     //   result.current.Home();
-//     // });
-
-//     // console.log("result.current.data", result.current.data);
-
-//     // expect(result.current.data).toBe({
-//     //   returnedData: "foo"
-//     // });
-//   });
-// });
+import { HandleData, DisplayContracts } from "./Home";
 
 it("renders without crashing", () => {
   shallow(<Home />);
@@ -45,41 +20,107 @@ it("renders a title on the homepage", () => {
 });
 
 // it("Should fetch an array of contacts", () => {
-//   const mockSuccessResponse = {};
-//   const mockJsonPromise = Promise.resolve(mockSuccessResponse); // 2
-//   const mockFetchPromise = Promise.resolve({
-//     // 3
-//     json: () => mockJsonPromise
+//   jest.spyOn(React, "useEffect").mockImplementation(f => {
+//     //   return f();
+//     // return async function() {
+//     //   console.log("Running");
+//     //   const result = await f();
+//     //   console.log("result", result);
+//     // };
+
+//     function mockFn() {
+//       console.log("FFFFF");
+
+//       setData({ error: "err" });
+//     }
+
+//     return mockFn();
 //   });
-//   jest.spyOn(global, "fetch").mockImplementation(() => mockFetchPromise);
 
-//   const wrapper = shallow(<Home />);
+//   let wrapper = mount(<Home />);
 
-//   expect(global.fetch).toHaveBeenCalledTimes(1);
-//   expect(global.fetch).toHaveBeenCalledWith(
-//     "https://url-of-your-server.com/example/json"
-//   );
+//   //   jest.spyOn(wrapper.instance(), "makeFetchRequest", fn => {
+//   //     console.log("makeFetchRequest called");
+//   //     return fn;
+//   //   });
+
+//   //   console.log("Wrapper", wrapper.debug());
 // });
 
-// it("App loads with initial state of 0", () => {
-//   const { container } = render(<Home />);
-//   const countValue = getByTestId(container, "data");
-//   expect(countValue.textContent).toBe("0");
-// });
+let data = [
+  {
+    data: {
+      type: "contracts",
+      id: "dc89ff49-8449-11e7-ac1d-3c52820efd20",
+      attributes: {
+        name: "Dummy Contract"
+      }
+    },
+    relationships: {
+      paragraphs: {
+        links: {
+          self: "/contract/dc89ff49-8449-11e7-ac1d-3c52820efd20/paragraphs"
+        }
+      }
+    }
+  },
+  {
+    data: {
+      type: "contracts",
+      id: "dc89ff49-8449-11e7-ac1d-3c52820efd21",
+      attributes: {
+        name: "Apple Media Services Terms and Conditions"
+      }
+    },
+    relationships: {
+      paragraphs: {
+        links: {
+          self: "/contract/dc89ff49-8449-11e7-ac1d-3c52820efd20/paragraphs"
+        }
+      }
+    }
+  }
+];
 
-it("Should fetch an array of contacts", () => {
-  jest.spyOn(React, "useEffect").mockImplementation(f => {
-    console.log("FFFFF");
-    return f();
+describe("HandleData", () => {
+  let wrapper;
+
+  it("displays contracts if data recieved", () => {
+    wrapper = shallow(<HandleData data={data} />);
+    expect(wrapper.find(DisplayContracts)).toHaveLength(1);
   });
 
-  let wrapper = shallow(<Home />);
+  it("displays an error message if no contracts found", () => {
+    wrapper = shallow(<HandleData data={{ error: "Error Message" }} />);
+    expect(wrapper.contains(<p>Error: Error Message</p>)).toBe(true);
+  });
+});
 
-  //   jest.spyOn(wrapper.instance(), "makeFetchRequest", fn => {
-  //     console.log("makeFetchRequest called");
-  //     return fn;
-  //   });
+describe("DisplayContracts", () => {
+  let wrapper;
+  it("displays Dummy contract link", () => {
+    wrapper = shallow(<DisplayContracts contracts={data} />);
+    expect(
+      wrapper.contains(
+        <li>
+          <a href="/contract/dc89ff49-8449-11e7-ac1d-3c52820efd20/paragraphs">
+            Dummy Contract
+          </a>
+        </li>
+      )
+    ).toBe(true);
+  });
 
-  console.log("Wrapper", wrapper.debug());
-  expect(wrapper.contains("Home")).toEqual(true);
+  it("displays Apple contract link", () => {
+    wrapper = shallow(<DisplayContracts contracts={data} />);
+    expect(
+      wrapper.contains(
+        <li>
+          <a href="/contract/dc89ff49-8449-11e7-ac1d-3c52820efd20/paragraphs">
+            Apple Media Services Terms and Conditions
+          </a>
+        </li>
+      )
+    ).toBe(true);
+  });
 });
