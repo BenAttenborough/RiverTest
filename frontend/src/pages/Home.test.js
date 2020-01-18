@@ -68,31 +68,18 @@ it("renders a title on the homepage", () => {
 // });
 
 it("Should fetch an array of contacts", () => {
-  //   const container = document.createElement("div");
-  //   const mockSuccessResponse = {
-  //     data: {
-  //       type: "contracts",
-  //       id: "dc89ff49-8449-11e7-ac1d-3c52820efd21",
-  //       attributes: {
-  //         name: "Apple Media Services Terms and Conditions"
-  //       }
-  //     },
-  //     relationships: {
-  //       paragraphs: {
-  //         links: {
-  //           self: "/contracts/dc89ff49-8449-11e7-ac1d-3c52820efd20/paragraphs"
-  //         }
-  //       }
-  //     }
-  //   };
-  //   const mockJsonPromise = Promise.resolve(mockSuccessResponse); // 2
-  //   const mockFetchPromise = Promise.resolve({
-  //     // 3
-  //     json: () => mockJsonPromise
+  jest.spyOn(React, "useEffect").mockImplementation(f => {
+    console.log("FFFFF");
+    return f();
+  });
+
+  let wrapper = shallow(<Home />);
+
+  //   jest.spyOn(wrapper.instance(), "makeFetchRequest", fn => {
+  //     console.log("makeFetchRequest called");
+  //     return fn;
   //   });
-  //   act(() => {
-  //     // jest.spyOn(global, "fetch").mockImplementation(() => mockFetchPromise);
-  //     ReactDOM.render(<Home />, container);
-  //     // expect(global.fetch).toHaveBeenCalledTimes(1);
-  //   });
+
+  console.log("Wrapper", wrapper.debug());
+  expect(wrapper.contains("Home")).toEqual(true);
 });

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { handleErrors } from "../utils/utils";
+import React, { useState } from "react";
+import { makeFetchRequest } from "../utils/utils";
 
 function DisplayContracts({ contracts }) {
   console.log("contracts:", contracts);
@@ -22,12 +22,13 @@ function DisplayContracts({ contracts }) {
 }
 
 function HandleData({ data }) {
+  console.log("data", data);
   return (
     <div>
-      {data.data ? (
-        <DisplayContracts contracts={data} />
-      ) : (
+      {data.error ? (
         <p>{`Error: ${data.error}`}</p>
+      ) : (
+        <DisplayContracts contracts={data} />
       )}
     </div>
   );
@@ -38,28 +39,8 @@ function HandleData({ data }) {
 export default function Home() {
   const [data, setData] = useState(null);
   let url = `http://localhost:4000/contracts`;
-  useEffect(() => {
-    fetch(url)
-      .then(resp => {
-        console.log("cc", resp);
-        handleErrors(resp);
-      })
-      .then(resp => {
-        console.log(resp);
-        return resp.json();
-      })
-      .then(info => {
-        console.log("info", info);
-        setData(info);
-      })
-      .catch(err => {
-        console.log("err:", err);
-        if (err == "TypeError: Failed to fetch") {
-          setData({ error: `Cannot make contact with server on ${url}` });
-        } else {
-          setData({ error: err });
-        }
-      });
+  React.useEffect(() => {
+    makeFetchRequest(url, setData);
   }, []);
   return (
     <div>
