@@ -1,6 +1,8 @@
 export function handleErrors(response) {
+  console.log("xy", response);
   if (!response.ok) {
-    throw Error(response.statusText);
+    console.log("NOT OK!");
+    throw Error("foo");
   }
   return response;
 }

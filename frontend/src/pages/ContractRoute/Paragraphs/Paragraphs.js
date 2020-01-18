@@ -104,9 +104,7 @@ function useVis(
   content,
   EOF
 ) {
-  // const [triggered, setTriggered] = useState(false);
   console.log("useVis prevContent", prevContent);
-  // console.log("useVis content", content);
 
   const observer = new IntersectionObserver(
     ([entry]) => {
@@ -114,16 +112,7 @@ function useVis(
         console.log("useVis prevContent inner", prevContent);
         console.log("fetchParams.currentPage", fetchParams.currentPage);
         console.log("currentPage", currentPage);
-        // console.log("useVis content inner", content);
 
-        // item is in view
-        // console.log("currentPage:", currentPage);
-        // console.log("triggered:", triggered);
-        // setCurrentPage(currentPage + 1);
-        // setTriggered(true);
-
-        // Get more paragraphs
-        // console.log("fetchParams", fetchParams);
         fetchParams = {
           ...fetchParams,
           currentPage: fetchParams.currentPage + 1,
@@ -131,15 +120,7 @@ function useVis(
         };
         console.log("Updated fetchParams", fetchParams);
         console.log("********* EOF:", EOF);
-        // let params = {
-        //   id: fetchParams.id,
-        //   currentPage: fetchParams.currentPage + 1,
-        //   pageSize: fetchParams.pageSize,
-        //   prevContent: content,
-        //   setContent: fetchParams.setContent,
-        //   setEOF: fetchParams.setEOF
-        // };
-        // console.log("Updated params", params);
+
         fetchPars(fetchParams);
         setCurrentPage(currentPage + 1);
         // *** setEOF
@@ -263,19 +244,31 @@ export function Paragraphs(props) {
       <p>{`Starting page: ${page}`}</p>
       <p>{`Fetching ${pageSize} paragraphs at a time`}</p>
       {content ? (
-        <div>
-          <ShowContent
-            content={content}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-            EOF={EOF}
-            fetchParams={fetchParams}
-            prevContent={content}
-          />
-        </div>
+        content.error ? (
+          <Error message={content.error} />
+        ) : (
+          <div>
+            <ShowContent
+              content={content}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              EOF={EOF}
+              fetchParams={fetchParams}
+              prevContent={content}
+            />
+          </div>
+        )
       ) : (
         "Fetching data"
       )}
+    </div>
+  );
+}
+
+function Error({ message }) {
+  return (
+    <div>
+      <p>{`${message}`}</p>
     </div>
   );
 }
