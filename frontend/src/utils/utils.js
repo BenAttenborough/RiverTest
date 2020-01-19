@@ -14,6 +14,7 @@ export function makeFetchRequest(url, callback) {
       return x.json();
     })
     .then(info => {
+      console.log(">info>", info);
       callback(info);
     })
     .catch(err => {
