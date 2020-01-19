@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { fetchPars, fetchTitle, ShowContent } from "./pagagraphFunctionality";
+import { fetchPars, fetchTitle, ShowContent } from "./paragraphFunctionality";
 
 /**
  * Component that wraps all the page functionality together

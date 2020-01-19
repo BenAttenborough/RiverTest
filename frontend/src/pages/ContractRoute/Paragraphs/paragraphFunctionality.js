@@ -81,7 +81,6 @@ function updateParagraphs(data, prevContent, setContent, setEOF) {
   if (lastItem.id === "EOF") {
     setEOF(true);
   }
-  console.log("formattedContent", formattedContent);
   setContent(formattedContent);
 }
 /**
