@@ -3,13 +3,14 @@ import { shallow, mount } from "enzyme";
 import { Paragraphs } from "./Paragraphs";
 import { createMemoryHistory } from "history";
 import { Router } from "react-router";
+import { act } from "react-dom/test-utils";
 
 describe("Paragraphs", () => {
   // const mockUseParams = jest.fn(() => 1)
 
   it("renders without crashing", () => {
     const history = createMemoryHistory();
-    const wrapper = shallow(
+    shallow(
       <Router history={history}>
         <Paragraphs />
       </Router>
@@ -18,11 +19,13 @@ describe("Paragraphs", () => {
 
   it("shows holding page while waiting to fetch data", () => {
     const history = createMemoryHistory();
-    const wrapper = mount(
+
+    const wrapper = shallow(
       <Router history={history}>
         <Paragraphs />
       </Router>
     );
+
     expect(
       wrapper.contains(
         <div>

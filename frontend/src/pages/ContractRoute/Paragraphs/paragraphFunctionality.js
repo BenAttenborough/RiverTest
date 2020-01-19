@@ -17,7 +17,7 @@ function Button(props) {
  */
 export function fetchTitle(id, setTitle) {
   const url = `${baseUrl}/contract/${id}`;
-  makeFetchRequest(url, response => {
+  makeFetchRequest(url).then(response => {
     if (!response.error) {
       setTitle(response.data.attributes.name);
     }
@@ -44,7 +44,7 @@ export function fetchPars({
   setEOF
 }) {
   const url = `${baseUrl}/contract/${id}/paragraphs?page=${currentPage}&pageSize=${pageSize}`;
-  makeFetchRequest(url, data => {
+  makeFetchRequest(url).then(data => {
     if (data.error) {
       console.warn("There has been an error. Is the server up and running?");
       setContent([
@@ -64,7 +64,7 @@ export function fetchPars({
  * @param {function} setContent A function which sets the content state
  * @param {function} setEOF If the end of the contract is hit this will be called to inform the system to stop fetching paragraphs
  */
-function updateParagraphs(data, prevContent, setContent, setEOF) {
+export function updateParagraphs(data, prevContent, setContent, setEOF) {
   let formattedContent = [];
   if (data.content) {
     formattedContent = data.content.map(item => {
@@ -89,8 +89,7 @@ function updateParagraphs(data, prevContent, setContent, setEOF) {
  *
  * @param { object } props Contains props.content
  */
-function ShowParagraphs({ content }) {
-  // console.log("xContentx:", content);
+export function ShowParagraphs({ content }) {
   if (!content) {
     return <li>There is no content for specified page</li>;
   }
@@ -111,7 +110,15 @@ function ShowParagraphs({ content }) {
  * @param {array} content The current paragraphs displayed
  * @param {boolean} EOF Indicates if we have hit the end of the file
  */
-function useVis(ref, currentPage, setCurrentPage, fetchParams, content, EOF) {
+
+export function useVis(
+  ref,
+  currentPage,
+  setCurrentPage,
+  fetchParams,
+  content,
+  EOF
+) {
   const observer = new IntersectionObserver(
     ([entry]) => {
       if (entry.intersectionRatio === 1) {

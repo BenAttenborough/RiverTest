@@ -41,7 +41,7 @@ export default function Home() {
   const [data, setData] = useState(null);
   let url = `http://localhost:4000/contracts`;
   React.useEffect(() => {
-    makeFetchRequest(url, setData);
+    makeFetchRequest(url).then(setData);
   }, []);
   return (
     <div>
