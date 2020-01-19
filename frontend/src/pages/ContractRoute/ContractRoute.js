@@ -13,14 +13,11 @@ export function ContractRoute() {
   return (
     <div>
       <Switch>
-        <Route path={`${match.path}/:id/paragraphs`}>
+        <Route path={`${match.path}/:id`}>
           <Paragraphs
             page={query.get("page")}
             pageSize={query.get("pageSize")}
           />
-        </Route>
-        <Route path={`${match.path}/:id`}>
-          <Contract />
         </Route>
       </Switch>
     </div>

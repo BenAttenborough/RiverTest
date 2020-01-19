@@ -12,8 +12,6 @@ export function DisplayContracts({ contracts }) {
             <li key={contract.data.id}>
               {contract.data.attributes.name}
               <span> </span>
-              <Link to={`contract/${contract.data.id}`}>View title</Link>
-              <span> </span>
               <Link to={contract.relationships.paragraphs.links.self}>
                 View content
               </Link>
