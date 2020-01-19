@@ -18,7 +18,9 @@ function Button(props) {
 export function fetchTitle(id, setTitle) {
   const url = `${baseUrl}/contract/${id}`;
   makeFetchRequest(url, response => {
-    setTitle(response.data.attributes.name);
+    if (!response.error) {
+      setTitle(response.data.attributes.name);
+    }
   });
 }
 /**
@@ -43,7 +45,15 @@ export function fetchPars({
 }) {
   const url = `${baseUrl}/contract/${id}/paragraphs?page=${currentPage}&pageSize=${pageSize}`;
   makeFetchRequest(url, data => {
-    updateParagraphs(data, prevContent, setContent, setEOF);
+    if (data.error) {
+      console.warn("There has been an error. Is the server up and running?");
+      setContent([
+        { id: 1, text: `Cannot fetch data from server. Error: ${data.error}` }
+      ]);
+      setEOF(true);
+    } else {
+      updateParagraphs(data, prevContent, setContent, setEOF);
+    }
   });
 }
 /**
@@ -71,6 +81,7 @@ function updateParagraphs(data, prevContent, setContent, setEOF) {
   if (lastItem.id === "EOF") {
     setEOF(true);
   }
+  console.log("formattedContent", formattedContent);
   setContent(formattedContent);
 }
 /**
