@@ -22,9 +22,6 @@ export function ContractRoute() {
         <Route path={`${match.path}/:id`}>
           <Contract />
         </Route>
-        <Route path={match.path}>
-          <h3>Please select a topic.</h3>
-        </Route>
       </Switch>
     </div>
   );

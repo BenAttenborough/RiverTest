@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { makeFetchRequest } from "../utils/utils";
+import { Link } from "react-router-dom";
 
 export function DisplayContracts({ contracts }) {
   return (
@@ -9,9 +10,13 @@ export function DisplayContracts({ contracts }) {
         {contracts.map(contract => {
           return (
             <li key={contract.data.id}>
-              <a href={`${contract.relationships.paragraphs.links.self}`}>
-                {contract.data.attributes.name}
-              </a>
+              {contract.data.attributes.name}
+              <span> </span>
+              <Link to={`contract/${contract.data.id}`}>View title</Link>
+              <span> </span>
+              <Link to={contract.relationships.paragraphs.links.self}>
+                View content
+              </Link>
             </li>
           );
         })}

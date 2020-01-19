@@ -35,7 +35,7 @@ function DisplayData(props) {
 export function Contract() {
   let { id } = useParams();
   const [data, setData] = useState(null);
-  let url = `http://localhost:4000/contract/${id}`;
+  const url = `http://localhost:4000/contract/${id}`;
   useEffect(() => {
     fetch(url)
       .then(handleErrors)
