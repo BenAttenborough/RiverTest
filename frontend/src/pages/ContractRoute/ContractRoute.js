@@ -1,6 +1,5 @@
 import React from "react";
 import { Switch, Route, useRouteMatch, useLocation } from "react-router-dom";
-import { Contract } from "./Contract/Contract";
 import { Paragraphs } from "./Paragraphs/Paragraphs";
 
 function useQuery() {

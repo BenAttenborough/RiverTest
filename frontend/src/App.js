@@ -9,7 +9,6 @@ export default function App() {
     <Router>
       <div className="App">
         <div className="App-main">
-          <Link to="/">Home</Link>
           <Switch>
             <Route path="/contract">
               <div id="paragraphs-container" className="App-content">
