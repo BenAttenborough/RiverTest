@@ -2,6 +2,14 @@
 
 ## How to use this app
 
+### TL;DR;
+
+`cd backend && npm install && npm start`
+`cd ..`
+`cd frontend && npm install && npm start`
+
+### Details
+
 This application consists of a front end and a back end which are seperated. The frontend requires the backend to be running in order to fetch data.
 
 To run the backend server. From project root:
