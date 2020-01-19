@@ -3,23 +3,6 @@ var router = express.Router();
 var contract1 = require("../data/appleContract.js");
 var contract2 = require("../data/dummyContract.js");
 
-// const contract2 = {
-//   data: {
-//     type: "contracts",
-//     id: "ddd2222",
-//     attributes: {
-//       name: "Contract Two Name"
-//     }
-//   },
-//   relationships: {
-//     paragraphs: {
-//       links: {
-//         self: "/contracts/ddd2222/paragraphs"
-//       }
-//     }
-//   }
-// };
-
 const contracts = [contract1, contract2];
 
 function getMetaData(contract) {
@@ -78,8 +61,6 @@ router.get("/data", function(req, res, next) {
 });
 
 router.get("/contract/:contractID", function(req, res) {
-  // res.send(req.params);
-
   const { contractID } = req.params;
   const foundContract = contracts.find(ele => ele.data.id === contractID);
   if (foundContract) {
@@ -87,14 +68,9 @@ router.get("/contract/:contractID", function(req, res) {
   } else {
     res.status(404).send("Not found");
   }
-
-  // res.send(`Contract id from server: ${contractID}`);
-  // res.send(`Contract name: ${contract.data.attributes.name}`);
 });
 
 router.get("/contract/:contractID/paragraphs", function(req, res) {
-  // res.send(req.params);
-
   const { contractID } = req.params;
   const { page, pageSize } = req.query;
   console.log("req.query", req.query);
@@ -107,9 +83,6 @@ router.get("/contract/:contractID/paragraphs", function(req, res) {
   } else {
     res.status(404).send("Not found");
   }
-
-  // res.send(`Contract id from server: ${contractID}`);
-  // res.send(`Contract name: ${contract.data.attributes.name}`);
 });
 
 router.get("/contracts", function(req, res) {

@@ -1,13 +1,10 @@
 import React from "react";
-import { shallow, mount } from "enzyme";
+import { shallow } from "enzyme";
 import { Paragraphs } from "./Paragraphs";
 import { createMemoryHistory } from "history";
 import { Router } from "react-router";
-import { act } from "react-dom/test-utils";
 
 describe("Paragraphs", () => {
-  // const mockUseParams = jest.fn(() => 1)
-
   it("renders without crashing", () => {
     const history = createMemoryHistory();
     shallow(

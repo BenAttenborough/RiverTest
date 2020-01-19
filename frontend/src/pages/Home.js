@@ -3,6 +3,12 @@ import { makeFetchRequest } from "../utils/utils";
 import { Link } from "react-router-dom";
 import { baseUrl } from "../settings/constants";
 
+/**
+ * Displays list of contracts returned by the server
+ * Provides a link to view their content
+ *
+ * @param {*} params
+ */
 export function DisplayContracts({ contracts }) {
   return (
     <div>
@@ -24,6 +30,11 @@ export function DisplayContracts({ contracts }) {
   );
 }
 
+/**
+ * Checks if there is an error before listing contracts
+ *
+ * @param {*} param0
+ */
 export function HandleData({ data }) {
   return (
     <div>
@@ -36,6 +47,9 @@ export function HandleData({ data }) {
   );
 }
 
+/**
+ * Renders the home page
+ */
 export default function Home() {
   const [data, setData] = useState(null);
   let url = `${baseUrl}/contracts`;

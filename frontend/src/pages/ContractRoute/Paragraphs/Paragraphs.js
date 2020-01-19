@@ -62,6 +62,10 @@ export function Paragraphs(props) {
         Home
       </Link>
       <h2>{title}</h2>
+      <p>
+        Scroll to fetch additional paragraphs. Forward/backwards buttons skip
+        pages
+      </p>
       <Controls page={page} resetPage={resetPage} EOF={EOF} />
       <p>{`Starting page: ${page}`}</p>
       <p>{`Fetching ${pageSize} paragraphs at a time`}</p>

@@ -1,6 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import { makeFetchRequest } from "../../../utils/utils";
 import { baseUrl } from "../../../settings/constants";
+
+/**
+ * Provides button functionality
+ *
+ * @param {*} props
+ */
 function Button(props) {
   const { label, action } = props;
   return (
@@ -9,6 +15,7 @@ function Button(props) {
     </div>
   );
 }
+
 /**
  * Fetches the contract title and sets it
  *
@@ -23,6 +30,7 @@ export function fetchTitle(id, setTitle) {
     }
   });
 }
+
 /**
  * Fetches paragraphs based on:
  * id: The id of the contract
@@ -56,6 +64,7 @@ export function fetchPars({
     }
   });
 }
+
 /**
  * Updates the content state with additional paragraphs
  *
@@ -83,6 +92,7 @@ export function updateParagraphs(data, prevContent, setContent, setEOF) {
   }
   setContent(formattedContent);
 }
+
 /**
  * Shows all the paragraphs sent to it
  * NOTE: Every paragraph must have a unique key
@@ -97,6 +107,7 @@ export function ShowParagraphs({ content }) {
     return <li key={item.id}>{item.text}</li>;
   });
 }
+
 /**
  * Watches for when user scrolls to the bottom of the page
  * and fetches additional paragraphs (if any).
@@ -110,7 +121,6 @@ export function ShowParagraphs({ content }) {
  * @param {array} content The current paragraphs displayed
  * @param {boolean} EOF Indicates if we have hit the end of the file
  */
-
 export function useVis(
   ref,
   currentPage,
@@ -148,6 +158,7 @@ export function useVis(
     }
   }, [content]);
 }
+
 /**
  * Displays all the paragraphs and adds magic scroll element which is used for
  * detecting when the user has scrolled to the bottom of the screen
@@ -165,10 +176,10 @@ export function ShowContent(props) {
         <ShowParagraphs content={content} />
       </ul>
       {!EOF && (
+        // Button as a fallback in case scroll fails on some browsers (IE 11)
         <Button
           label={"Fetch more paragraphs"}
           action={() => {
-            console.log("currentPage,", currentPage);
             setCurrentPage(currentPage + 1);
           }}
         />

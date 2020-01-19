@@ -1,12 +1,7 @@
 import React from "react";
-import { shallow, mount } from "enzyme";
+import { shallow } from "enzyme";
 import * as paragraphFunctionality from "./paragraphFunctionality";
 import * as utils from "../../../utils/utils";
-
-// fetchTitle,
-//   updateParagraphs,
-//   ShowParagraphs,
-//   ShowContent
 
 describe("fetchTitle", () => {
   it("Gets response from server and runs provided function with data.attributes.name", done => {

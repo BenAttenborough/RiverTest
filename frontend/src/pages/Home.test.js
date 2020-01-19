@@ -1,15 +1,8 @@
 import React from "react";
-import { shallow, mount } from "enzyme";
-// import ReactDOM from "react-dom";
-// // import { act } from "react-dom/test-utils";
-// import { render, fireEvent, getByTestId } from "@testing-library/react";
-// import "whatwg-fetch";
-// import { renderHook } from "@testing-library/react-hooks";
-// import fetchMock from "fetch-mock";
+import { shallow } from "enzyme";
 import Home from "./Home";
 import { HandleData, DisplayContracts } from "./Home";
-import renderer from "react-test-renderer";
-import { Link, Router, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 it("renders without crashing", () => {
   shallow(<Home />);
