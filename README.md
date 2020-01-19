@@ -7,7 +7,7 @@ This application consists of a front end and a back end which are seperated. The
 To run the backend server. From project root:
 
 First time
-`cd backend && npm intsall && npm start`
+`cd backend && npm install && npm start`
 
 `cd backend && npm start`
 
