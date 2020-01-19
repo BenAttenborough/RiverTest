@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { fetchPars, fetchTitle, ShowContent } from "./paragraphFunctionality";
+import Controls from "./Controls";
 
 /**
  * Component that wraps all the page functionality together
@@ -78,46 +79,6 @@ export function Paragraphs(props) {
         )
       ) : (
         "Fetching data"
-      )}
-    </div>
-  );
-}
-
-function Controls({ page, resetPage, EOF }) {
-  let [pagination, setPagination] = useState(page);
-  return (
-    <div>
-      <form>
-        <input
-          type="text"
-          value={pagination}
-          onChange={event => {
-            setPagination(parseInt(event.target.value));
-            resetPage(parseInt(event.target.value));
-          }}
-        />
-      </form>
-
-      {pagination > 1 && (
-        <button
-          onClick={() => {
-            setPagination(parseInt(pagination) - 1);
-            resetPage(parseInt(pagination) - 1);
-          }}
-        >
-          Page backwards
-        </button>
-      )}
-
-      {!EOF && (
-        <button
-          onClick={() => {
-            setPagination(parseInt(pagination) + 1);
-            resetPage(parseInt(pagination) + 1);
-          }}
-        >
-          Page forward
-        </button>
       )}
     </div>
   );

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { makeFetchRequest } from "../utils/utils";
 import { Link } from "react-router-dom";
+import { baseUrl } from "../settings/constants";
 
 export function DisplayContracts({ contracts }) {
   return (
@@ -37,7 +38,7 @@ export function HandleData({ data }) {
 
 export default function Home() {
   const [data, setData] = useState(null);
-  let url = `http://localhost:4000/contracts`;
+  let url = `${baseUrl}/contracts`;
   React.useEffect(() => {
     makeFetchRequest(url).then(setData);
   }, []);

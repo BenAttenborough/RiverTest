@@ -81,3 +81,16 @@ a {
   padding: 1rem;
   font-weight: bold;
 }
+
+.page-button {
+  text-decoration: none;
+  margin: 1rem 1rem 0;
+  display: inline-block;
+  background-color: #5bb4fd;
+  border-radius: 5px;
+  width: auto;
+  padding: 1rem;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+}

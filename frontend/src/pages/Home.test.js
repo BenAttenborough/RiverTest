@@ -77,16 +77,6 @@ describe("DisplayContracts", () => {
     expect(wrapper.contains("Dummy Contract")).toBe(true);
   });
 
-  it("displays 'Dummy Contract' meta link", () => {
-    expect(
-      wrapper.contains(
-        <Link to="contract/dc89ff49-8449-11e7-ac1d-3c52820efd20">
-          View title
-        </Link>
-      )
-    ).toBe(true);
-  });
-
   it("displays 'Dummy Contract' paragraphs link", () => {
     expect(
       wrapper.contains(
@@ -101,16 +91,6 @@ describe("DisplayContracts", () => {
     expect(wrapper.contains("Apple Media Services Terms and Conditions")).toBe(
       true
     );
-  });
-
-  it("displays 'Apple' meta link", () => {
-    expect(
-      wrapper.contains(
-        <Link to="contract/dc89ff49-8449-11e7-ac1d-3c52820efd21">
-          View title
-        </Link>
-      )
-    ).toBe(true);
   });
 
   it("displays 'Apple' paragraphs link", () => {
